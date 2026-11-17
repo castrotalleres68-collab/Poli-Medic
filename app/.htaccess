@@ -1,0 +1,11 @@
+# Esta carpeta solo contiene código interno (conexión, funciones, vistas).
+# Nadie debe poder abrir estos archivos escribiendo su dirección en el navegador.
+# Apache 2.4 (XAMPP actual):
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+# Apache 2.2 (versiones antiguas):
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

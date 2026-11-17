@@ -1,0 +1,14 @@
+# Credenciales locales: no se comparten
+app/config.local.php
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Registros y temporales
+*.log
+*.tmp
+*.bak

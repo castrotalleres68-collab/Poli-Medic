@@ -1,0 +1,27 @@
+POLI MEDIC — ENTREGA DE BASE DE DATOS II
+
+Esta carpeta conserva el portal de pacientes y el panel administrativo existentes.
+No importar el archivo database/instalacion/01_esquema_y_datos.sql sobre una base con datos reales sin revisar antes su contenido: es un esquema de instalación y contiene sentencias de creación/precarga.
+
+ORDEN RECOMENDADO
+1. Hacer una exportación de respaldo desde phpMyAdmin antes de cualquier migración.
+2. Abrir database/pruebas/verificacion_estructura.sql y revisar la estructura actual.
+3. Revisar docs/REVISION_TECNICA_Y_ESTADO.md para distinguir pruebas estáticas de pruebas pendientes en el servidor real.
+4. Ejecutar database/pruebas/prueba_trigger_auditoria.sql en una sesión con permisos suficientes y guardar capturas de las salidas.
+5. Ejecutar database/pruebas/prueba_transacciones.sql y guardar capturas de las salidas.
+6. Revisar database/instalacion/03_restricciones_integridad.sql. Solo agrega restricciones si no existen y si los datos actuales las cumplen; revisar los mensajes de salida.
+7. Revisar DCL: primero verificar cuentas existentes; después ejecutar usuarios_roles_permisos.sql y asignar roles únicamente a las cuentas confirmadas.
+8. Probar el portal y el panel en el navegador después de los cambios.
+
+CONEXIÓN MYSQL
+app/config.php conserva el valor predeterminado local de XAMPP (localhost, centro_medico_salud, root y contraseña vacía). También admite las variables de entorno POLIMEDIC_DB_HOST, POLIMEDIC_DB_NAME, POLIMEDIC_DB_USER y POLIMEDIC_DB_PASSWORD para poder usar una cuenta dedicada sin escribir la contraseña en el código.
+No cambies la conexión a polimedic_app hasta verificar que la cuenta existe, tiene los permisos necesarios y la contraseña funciona.
+
+SEGURIDAD
+- No ejecutar DROP DATABASE ni DROP TABLE para resolver problemas comunes.
+- No ejecutar las migraciones antiguas sin compararlas con la estructura actual.
+- No ejecutar database/dcl/02_crear_cuentas_plantilla.sql hasta reemplazar los marcadores de contraseña y comprobar que las cuentas no existen.
+- database/utilidades/actualizar_estado_atendido.sql solo consulta por defecto. El bloque que actualiza en lote está comentado deliberadamente.
+
+PRUEBAS REALIZADAS EN ESTA ENTREGA
+Se verificó sintaxis PHP con php -l y sintaxis JavaScript con node --check. No se ejecutaron consultas contra el MySQL local de Windows porque este entorno no tiene conexión a ese servidor.
